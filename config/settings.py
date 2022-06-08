@@ -47,9 +47,10 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += [
-   'cloudinary_storage',
-   'cloudinary',
-   'a22003298-portfolio-heroku'
+    'cloudinary_storage',
+    'cloudinary',
+    'a22003298-portfolio-heroku'
+    'a22003298-lab10'
 ]
 
 MIDDLEWARE = [

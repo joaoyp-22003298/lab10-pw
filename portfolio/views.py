@@ -144,27 +144,14 @@ def quizz_view(request):
 
 
 def desenha_grafico_resultados(request):
+    pontuacoes = PontuacaoQuizz.objects.all()
+    pontuacao_sorted = sorted(pontuacoes, key=lambda objeto: objeto.pontuacao, reverse=False)
     lista_nomes = []
     lista_pontuacao = []
 
-    pontuacoes = PontuacaoQuizz.objects.all().order_by('pontuacao')
-
-    for person in pontuacoes:
+    for person in pontuacao_sorted:
         lista_nomes.append(person.nome)
         lista_pontuacao.append(person.pontuacao)
 
     plt.barh(lista_nomes, lista_pontuacao)
-    plt.ylabel("Pontuação")
-    plt.autoscale()
-
-    fig = plt.gcf()
-    plt.close()
-
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
-
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    uri = urllib.parse.quote(string)
-
-    return uri
+    plt.savefig('portfolio/static/portfolio/images/graf.png', bbox_inches='tight')
